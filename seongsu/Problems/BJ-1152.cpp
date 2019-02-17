@@ -6,17 +6,20 @@ using namespace std;
 int main() {
     string A;
     getline(cin,A);
-    int n = 0;
-    for(int i = 1; i < A.length()-1; i++){
-        if(A[i] == ' '){
-            n++;
+    if(A[0] == ' ')
+        A = A.substr(1);
+    if(A[A.length()-1] == ' ')
+        A = A.substr(0,A.length()-1);
+    int ans =0;
+    if(A == ""){
+        cout << ans;
+    } else {
+        for(int i = 0; i <A.length(); i++) {
+            if(A[i] == ' '){
+                ans++;
+            }
         }
-    }
-    if(A == " "){
-        cout << 0;
-    }
-    else if(n != 0) {
-        n++;
-        cout << n;
+        ans++;
+        cout << ans;
     }
 }
