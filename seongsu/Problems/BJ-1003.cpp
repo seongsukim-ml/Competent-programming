@@ -8,34 +8,42 @@
 
 using namespace std;
 
-int A, B;
+long long *dp0, *dp1;
 
-int fibonacci(int n) {
-    if (n == 0) {
-        A++;
-        return 0;
-    } else if (n == 1) {
-        B++;
-        return 1;
-    } else {
-        return fibonacci(n-1) + fibonacci(n-2);
+void fibonacci(int n) {
+    if(n == 0)
+        return;
+    if(n == 1)
+        return;
+    if(dp0[n] == 0 && dp1[n] == 0) {
+        if(dp0[n-1] == 0 && dp1[n-1] == 0)
+            fibonacci(n-1);
+        if(dp0[n-2] == 0 && dp1[n-2] == 0)
+            fibonacci(n-2);
+        dp0[n] = dp0[n-1] + dp0[n-2];
+        dp1[n] = dp1[n-1] + dp1[n-2];
     }
 }
 
 int main() {
     std::ios::sync_with_stdio(false);
     cin.tie(nullptr);
-
+    dp0 = new long long[41];
+    dp1 = new long long[41];
+    For(i,0,41){
+        dp0[i] = 0;
+        dp1[i] = 0;
+    }
+    dp0[0] = 1;
+    dp1[1] = 1;
     int Test_case;
     cin >> Test_case;
     for(; Test_case > 0; Test_case--){
-        A = 0; B = 0;
-
         int N;
         sf1(N);
 
         fibonacci(N);
-        pf2(A,B);
+        pf2(dp0[N],dp1[N]);
     }
 }
 
